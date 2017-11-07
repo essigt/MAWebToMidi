@@ -1,6 +1,9 @@
 package de.essigt.light.mawebtomidi;
 
+import static org.junit.Assert.fail;
+
 import javax.sound.midi.InvalidMidiDataException;
+import javax.sound.midi.MidiDevice;
 import javax.sound.midi.MidiDevice.Info;
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.MidiUnavailableException;
@@ -15,12 +18,23 @@ public class MidiTest {
 	@Test
 	public void testMidiLaunchpadMini() throws InvalidMidiDataException, MidiUnavailableException, InterruptedException {
 		Info[] midiDeviceInfo = MidiSystem.getMidiDeviceInfo();
+		
+		MidiDevice device = null;
 		for (Info i : midiDeviceInfo) {
 			System.out.println("Name: " + i.getName() + " Data: " + i.toString());
+			if(i.getName().contains("Launchpad")) {
+				System.out.println("Found Launchpad");
+				device = MidiSystem.getMidiDevice(i);
+				
+			}
+		}
+		if(device == null) {
+			fail("No Launchpad found");
+			return;
 		}
 
 		ShortMessage myMsg = new ShortMessage();
-		Receiver rcvr = MidiSystem.getReceiver();
+		Receiver rcvr = device.getReceiver();
 
 		//Display color pallet
 		for(int row = 0; row < 8 ; row++) {
