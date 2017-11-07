@@ -13,19 +13,44 @@ import org.junit.Test;
 public class MidiTest {
 
 	@Test
-	public void testMidi() throws InvalidMidiDataException, MidiUnavailableException, InterruptedException {
+	public void testMidiLaunchpadMini() throws InvalidMidiDataException, MidiUnavailableException, InterruptedException {
 		Info[] midiDeviceInfo = MidiSystem.getMidiDeviceInfo();
-		for(Info i : midiDeviceInfo) {
-			System.out.println("Name: " + i.getName() + " Data: " + i.toString() );
+		for (Info i : midiDeviceInfo) {
+			System.out.println("Name: " + i.getName() + " Data: " + i.toString());
 		}
-		
+
 		ShortMessage myMsg = new ShortMessage();
 		Receiver rcvr = MidiSystem.getReceiver();
+
+		//Display color pallet
+		for(int row = 0; row < 8 ; row++) {
+			for(int i = 0; i < 8; i++) {
+				myMsg.setMessage(ShortMessage.NOTE_ON, 0, row*16 + i, row*8 + i);
+				rcvr.send(myMsg, -1);
+			}
+		}
+
 		
-		for(int i = 0; i< 128; i++) {
-			myMsg.setMessage(ShortMessage.NOTE_ON, 0, 48, i);
-			rcvr.send(myMsg, -1);
-			Thread.sleep(500L);
+		//Let some lights blink
+		while (true) {
+			for (int i = 0; i < 4; i++) {
+				myMsg.setMessage(ShortMessage.NOTE_ON, 0, 48, i);
+				rcvr.send(myMsg, -1);
+				
+				myMsg.setMessage(ShortMessage.NOTE_ON, 0, 49, 16);
+				rcvr.send(myMsg, -1);
+				
+				Thread.sleep(50L);
+			}
+			for (int i = 3; i >= 0; i--) {
+				myMsg.setMessage(ShortMessage.NOTE_ON, 0, 48, i);
+				rcvr.send(myMsg, -1);
+				
+				myMsg.setMessage(ShortMessage.NOTE_ON, 0, 49, 0);
+				rcvr.send(myMsg, -1);
+				
+				Thread.sleep(50L);
+			}
 		}
 	}
 }
