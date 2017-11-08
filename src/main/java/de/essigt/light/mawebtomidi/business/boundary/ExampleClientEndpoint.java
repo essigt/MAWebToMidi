@@ -1,4 +1,4 @@
-package de.essigt.light.mawebtomidi;
+package de.essigt.light.mawebtomidi.business.boundary;
 import java.net.URI;
 
 import javax.websocket.ClientEndpoint;
@@ -14,6 +14,7 @@ import javax.websocket.WebSocketContainer;
 @ClientEndpoint
 public class ExampleClientEndpoint {
     Session userSession = null;
+    
     private MessageHandler messageHandler;
  
     public ExampleClientEndpoint(URI endpointURI) {
@@ -24,6 +25,14 @@ public class ExampleClientEndpoint {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+    
+    public boolean isOpen() {
+    	if(this.userSession != null) {
+    		return this.userSession.isOpen();
+    	} else {
+    		return false;
+    	}
     }
  
     /**

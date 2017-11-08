@@ -10,11 +10,13 @@ import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Receiver;
 import javax.sound.midi.ShortMessage;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 
 public class MidiTest {
 
+	@Ignore
 	@Test
 	public void testMidiLaunchpadMini() throws InvalidMidiDataException, MidiUnavailableException, InterruptedException {
 		Info[] midiDeviceInfo = MidiSystem.getMidiDeviceInfo();
