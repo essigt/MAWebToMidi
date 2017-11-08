@@ -37,9 +37,9 @@
                      <children>
                         <VBox layoutX="162.0" layoutY="59.0" prefHeight="338.0" prefWidth="600.0" spacing="8.0" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="8.0">
                            <children>
-                              <TextField id="txtUsername" fx:id="txtUsername" promptText="Username" />
+                              <TextField id="txtUsername" fx:id="txtUsername" promptText="Username" text="guest" />
                               <PasswordField id="txtPassword" fx:id="txtPassword" promptText="Password" />
-                              <TextField id="txtIP" fx:id="txtIP" promptText="IP" />
+                              <TextField id="txtIP" fx:id="txtIP" promptText="IP" text="localhost"/>
                               <Button id="btnTestConnection" fx:id="btnTestConnection" mnemonicParsing="false" onAction="#handleTestConnectionButtonAction" text="Test Connection" />
                            </children>
                         </VBox>

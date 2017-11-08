@@ -88,6 +88,7 @@ public class ExampleClientEndpoint {
      * @param message
      */
     public void sendMessage(String message) {
+    	System.out.println("Send: " + message);
         this.userSession.getAsyncRemote().sendText(message);
     }
  

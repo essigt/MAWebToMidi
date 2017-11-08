@@ -97,26 +97,29 @@ public class MAWebToMidiApplication extends Application {
 
 
 	private void doSomething() {
-		List<Executer> executers;
-		try {
-			//TODO: Use result from WS
-			executers = parser.parseExecuterButtons(Files.readAllLines(Paths.get("/media/tim/9E48542648540007/Users/tessi/Documents/GitHub/MAWebToMidi/src/test/resources/", "responce_execzterbuttons_127running.json")).stream().collect(Collectors.joining()));
-
-			
-
-			for (Executer exec : executers) {
-				if (!exec.getName().isEmpty()) {
-					System.out.println("Executer: " + exec.getId() + "(" + exec.getName() + "): running=" + exec.isRunning());
-					if(executerManager.containsConfiguration(exec.getId())) {
-						executerManager.updateExecuter(exec);
-					}
-					
-				}
-			}
-
-		} catch (IOException e) {
-			e.printStackTrace();
+		if(maWeb.isLoggedIn()) {
+			maWeb.refreshExecuters();
 		}
+//		List<Executer> executers;
+//		try {
+//			//TODO: Use result from WS
+//			executers = parser.parseExecuterButtons(Files.readAllLines(Paths.get("/media/tim/9E48542648540007/Users/tessi/Documents/GitHub/MAWebToMidi/src/test/resources/", "responce_execzterbuttons_127running.json")).stream().collect(Collectors.joining()));
+//
+//			
+//
+//			for (Executer exec : executers) {
+//				if (!exec.getName().isEmpty()) {
+//					System.out.println("Executer: " + exec.getId() + "(" + exec.getName() + "): running=" + exec.isRunning());
+//					if(executerManager.containsConfiguration(exec.getId())) {
+//						executerManager.updateExecuter(exec);
+//					}
+//					
+//				}
+//			}
+//
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 
 	}
 
