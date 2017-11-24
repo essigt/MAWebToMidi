@@ -2,15 +2,8 @@ package de.essigt.light.mawebtomidi.presentation;
 
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.List;
-import java.util.stream.Collectors;
 
-import de.essigt.light.mawebtomidi.business.boundary.ExecuterManager;
 import de.essigt.light.mawebtomidi.business.boundary.MAWeb3_2_2_16;
-import de.essigt.light.mawebtomidi.business.controll.JsonParser;
-import de.essigt.light.mawebtomidi.business.entity.Executer;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -33,12 +26,7 @@ import javafx.util.Duration;
  */
 public class MAWebToMidiApplication extends Application {
 
-	private JsonParser parser = new JsonParser();
-	
-	private ExecuterManager executerManager = new ExecuterManager();
-
 	private Timeline timeline;
-
 
 	@FXML
 	private TextField txtUsername;
@@ -54,21 +42,22 @@ public class MAWebToMidiApplication extends Application {
 	
 	private MAWeb3_2_2_16 maWeb = new MAWeb3_2_2_16();
 
-	private Parent root;
 
 
 	@FXML
 	public void handleTestConnectionButtonAction(ActionEvent event) {
-				
-		System.out.println("Connect to: " + txtIP.getText() + " as " + txtUsername.getText());
-		
 		lblStatus.setText("Connecting...");
-		boolean result = maWeb.connect("localhost", txtUsername.getText(), txtPassword.getText());
-		
-		
-		
-		System.out.println("Connection: " + result);
-		
+		maWeb.connect("localhost", txtUsername.getText(), txtPassword.getText());
+	}
+	
+	@FXML
+	public void handleUpdateExecStateButtonAction(ActionEvent event) {
+		if(maWeb.isLoggedIn()) {
+			lblStatus.setText("Updating...");
+			maWeb.refreshExecuters();
+		} else {
+			lblStatus.setText("Updating failed. Not connected.");
+		}
 	}
 	
 	@Override
@@ -79,10 +68,8 @@ public class MAWebToMidiApplication extends Application {
 
 	@Override
 	public void start(Stage stage) throws IOException {
-		root = FXMLLoader.load(getClass().getResource("MainWindow.fxml"));
-	    
+		Parent root = FXMLLoader.load(getClass().getResource("MainWindow.fxml"));
         Scene scene = new Scene(root, 600, 400);
-    
         stage.setTitle("MAWebToMidi");
         stage.setScene(scene);
         stage.show();

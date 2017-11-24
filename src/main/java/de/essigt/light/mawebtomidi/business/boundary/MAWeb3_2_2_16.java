@@ -59,6 +59,10 @@ public class MAWeb3_2_2_16 {
 	}
 	
 	
+	/**
+	 * 
+	 * @param msg
+	 */
 	private void messageHandler(String msg) {
 		if(msg.equals("server ready")) {
 			handleServerReady();
@@ -71,14 +75,15 @@ public class MAWeb3_2_2_16 {
 		}
 		String responseType = jsonObject.getString("responseType");
 		
-		System.out.println("Responce: " + jsonObject.toString());
+		logger.info("Responce: " + jsonObject.toString());
 		
 		//TODO: Enough to decide?
 		if(responseType.equals("playbacks") && jsonObject.getInt("itemsType") == 2) {
 			List<Executer> executers = parser.parseExecuterButtons(msg);
 			for(Executer ex : executers) {
 				if(!ex.getName().isEmpty()) {
-					System.out.println("Executer: " + ex.getId() + "(" + ex.getName() + ") Running=" + ex.isRunning() );
+					logger.info("Executer: " + ex.getId() + "(" + ex.getName() + ") Running=" + ex.isRunning() );
+					ExecuterManager.getInstance().updateExecuter(ex);
 				}
 			}
 				
@@ -135,10 +140,10 @@ public class MAWeb3_2_2_16 {
 	private void handleLoginResponse(JsonObject jsonObject) {
 		if(jsonObject.getBoolean("result")) {
 			loggedIn = true;
-			System.out.println("Logged in succesfully!!! LoggedIn: " + loggedIn);
+			logger.info("Logged in succesfully!!! LoggedIn: " + loggedIn);
 		} else {
 			//loggedIn = false;
-			System.out.println("Login failed");
+			logger.warning("Login failed");
 		}
 	}
 

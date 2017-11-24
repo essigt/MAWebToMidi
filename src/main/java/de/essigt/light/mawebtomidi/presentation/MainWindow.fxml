@@ -6,7 +6,6 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="692.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.essigt.light.mawebtomidi.presentation.MAWebToMidiApplication">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
@@ -39,7 +38,7 @@
                            <children>
                               <TextField id="txtUsername" fx:id="txtUsername" promptText="Username" text="guest" />
                               <PasswordField id="txtPassword" fx:id="txtPassword" promptText="Password" />
-                              <TextField id="txtIP" fx:id="txtIP" promptText="IP" text="localhost"/>
+                              <TextField id="txtIP" fx:id="txtIP" promptText="IP" text="localhost" />
                               <Button id="btnTestConnection" fx:id="btnTestConnection" mnemonicParsing="false" onAction="#handleTestConnectionButtonAction" text="Test Connection" />
                            </children>
                         </VBox>
@@ -51,7 +50,7 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <VBox layoutX="6.0" layoutY="14.0" prefHeight="311.0" prefWidth="543.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <VBox layoutX="6.0" layoutY="14.0" prefHeight="311.0" prefWidth="543.0" spacing="8.0" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="8.0">
                            <children>
                               <TableView prefHeight="200.0" prefWidth="200.0">
                                 <columns>
@@ -60,6 +59,7 @@
                                     <TableColumn prefWidth="108.0" text="MidiValue" />
                                 </columns>
                               </TableView>
+                              <Button mnemonicParsing="false" onAction="#handleUpdateExecStateButtonAction" text="Update Exec State" />
                            </children>
                         </VBox>
                      </children>

@@ -5,6 +5,7 @@ import java.util.List;
 
 import de.essigt.light.mawebtomidi.business.entity.Executer;
 import de.essigt.light.mawebtomidi.business.entity.ExecuterConfiguration;
+import de.essigt.light.mawebtomidi.business.entity.ExecuterModel;
 
 /**
  * Manages the state of all executers
@@ -13,8 +14,32 @@ import de.essigt.light.mawebtomidi.business.entity.ExecuterConfiguration;
  */
 public class ExecuterManager {
 	
-	private List<ExecuterConfiguration> execConfigs = new ArrayList<>(); 
+	private List<ExecuterConfiguration> execConfigs = new ArrayList<>();
+	private ExecuterModel model = new ExecuterModel();
+
+	private static ExecuterManager instance;
 	
+	
+	private ExecuterManager() {
+	}
+	
+	public static ExecuterManager getInstance() {
+		if(instance == null) {
+			instance = new ExecuterManager();
+			
+			//Add dummy configuration
+			ExecuterConfiguration configuration = new ExecuterConfiguration();
+			configuration.setId(127);
+			configuration.setMidiOnNote(48);
+			configuration.setMidiOnValue(3);
+			configuration.setMidiOffNote(48);
+			configuration.setMidiOffValue(1);
+			instance.addExecuterConifguration( configuration );
+		}
+		
+		return instance;
+	}
+	 
 
 	/**
 	 * 
